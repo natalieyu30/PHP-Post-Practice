@@ -43,7 +43,7 @@ mysqli_close($conn);
             <p class="card-text">
                 <?php echo htmlspecialchars($item['body']); ?>
             </p>
-            <a href="#" class="btn btn-outline-dark">Go Details</a>
+            <a href="/php-crash/api_myblog/detailspost.php?id=<?php echo $item['id']; ?>" class="btn btn-outline-dark">Go Details</a>
         </div>
     </div>
 <?php endforeach; ?>

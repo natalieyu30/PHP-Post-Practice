@@ -3,17 +3,47 @@ include('config/sqli_db_connect.php');
 
 // Get all categories and display to Dropdownlist
 $sql = 'SELECT id, name FROM categories ORDER BY name';
-
 $cat_result = mysqli_query($conn, $sql);
-
 // Fetch the resulting rows as an array
 $cats = mysqli_fetch_all($cat_result, MYSQLI_ASSOC);
 
 
-//require('input_validator.php');
-$title = $author = $body = '';
+$id = $title = $author = $body = '';
 $category_id ='';
 $titleErr = $authorErr = $bodyErr = '';
+
+// GET id param
+if (isset($_GET['id'])) {
+    $id = mysqli_real_escape_string($conn, $_GET['id']);
+
+    // Query
+    $sql = "SELECT 
+                c.name AS category_name, 
+                p.id,
+                p.category_id,
+                p.title,
+                p.body,
+                p.author,
+                p.created_at 
+            FROM posts P JOIN categories c
+            ON p.category_id = c.id
+            WHERE p.id = $id";
+    
+    // Get query result
+    $result = mysqli_query($conn, $sql);
+    $post = mysqli_fetch_assoc($result);
+
+    $title = $post['title'];
+    $author = $post['author'];
+    $body = $post['body'];
+    $category_id = $post['category_id'];
+
+    // mysqli_free_result($result);
+    // mysqli_close($conn);
+}
+
+
+
 
 // Form Submit
 if(isset($_POST['submit'])){
@@ -21,7 +51,6 @@ if(isset($_POST['submit'])){
     if (empty($_POST['title'])) {
         $titleErr = 'Post title is required';
     } else {
-        // $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $title = mysqli_real_escape_string($conn, $_POST['title']);
     }
 
@@ -29,7 +58,6 @@ if(isset($_POST['submit'])){
     if (empty($_POST['author'])) {
         $authorErr = 'Author is required';
     } else {
-        // $author = filter_input(INPUT_POST, 'author', FILTER_SANITIZE_EMAIL);
         $author = mysqli_real_escape_string($conn, $_POST['author']);
     }
 
@@ -38,7 +66,6 @@ if(isset($_POST['submit'])){
         $bodyErr = 'Description is required';
     } else {
         $body = mysqli_real_escape_string($conn, $_POST['body']);
-        //$body = filter_input(INPUT_POST, 'body', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     }
 
     //  Category id
@@ -46,8 +73,9 @@ if(isset($_POST['submit'])){
 
     if ($title != '' && $author != '' && $body != '' && $category_id != '') {
         // Create sql
-        $sql = "INSERT INTO posts (title, body, author, category_id)
-                VALUES ('$title', '$body', '$author', '$category_id')";
+        $sql = "UPDATE posts
+            SET title = '$title', body = '$body', author = '$author', category_id = '$category_id'
+            WHERE id = $id";
 
         // Save DB and check
         if (mysqli_query($conn, $sql)) {
@@ -65,8 +93,9 @@ if(isset($_POST['submit'])){
 ?>
 
 <?php include('templates/header.php'); ?>
-    <h2>Create New Post</h2>
-    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" class="mt-4 w-75">
+    <h2>Edit Post</h2>
+    <!-- <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" class="mt-4 w-75"> -->
+    <form action="<?php echo "updatepost.php?id=$id" ?>" method="POST" class="mt-4 w-75">
     <div class="form-group mb-4">
         <label for="title">Post Title</label>
         <input type="text" name="title" class="form-control" value="<?php echo $title ?? ''; ?>"/>
@@ -85,8 +114,9 @@ if(isset($_POST['submit'])){
     <div class="form-group mb-4">
         <label for="body">Category</label>
         <select class="form-select p-1 ml-2" name="category_id">
+            <option value="">--Please choose a category--</option>
             <?php foreach($cats as $cat): ?>
-                <option value="<?php echo $cat['id'] ?>"><?php echo htmlspecialchars($cat['name']) ?></option>
+                <option value="<?php echo $cat['id'] ?>" <?php echo ($cat['id'] == $category_id) ? 'selected': null ?>><?php echo htmlspecialchars($cat['name']) ?></option>
             <?php endforeach; ?>
         </select>
     </div>
@@ -99,7 +129,7 @@ if(isset($_POST['submit'])){
         </div>
     </div>
     <div class="mb-3">
-        <input type="submit" Value="Create" name="submit"  class="btn btn-dark"/>
+        <input type="submit" Value="Update" name="submit"  class="btn btn-success"/>
     </div>
     </form>
 <?php include('templates/footer.php'); ?>
