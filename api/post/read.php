@@ -1,10 +1,10 @@
 <?php
 // Headers
 header('Access-Control-Allow-Origin: *');
-header('Content-Type: application/json');
+// header('Content-Type: application/json');
 
-include_once '../../config/Database.php';
-include_once '../../models/Post.php';
+include '../../config/Database.php';
+include '../../models/Post.php';
 
 // Instantiate DB & connect
 $database = new Database();
@@ -17,11 +17,12 @@ $post = new Post($db);
 $result = $post->read();
 // Get row count
 $num = $result->rowCount();
+$posts_arr = array();
 
 // Check if any posts
 if ($num > 0) {
     // Post array
-    $posts_arr = array();
+    // $posts_arr = array();
     $posts_arr['data'] = array();
 
     while($row = $result->fetch(PDO::FETCH_ASSOC)){
@@ -40,10 +41,13 @@ if ($num > 0) {
     }
 
     // Turn to JSON & output
-    echo json_encode($posts_arr);
+    // echo json_encode($posts_arr);
 } else {
     // No posts
     echo json_encode(
         array('message' => 'No post found')
     );
 }
+
+?>
+
