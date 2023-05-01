@@ -13,7 +13,8 @@ if (isset($_GET['id'])) {
                 p.title,
                 p.body,
                 p.author,
-                p.created_at 
+                p.created_at,
+                p.img 
             FROM posts P JOIN categories c
             ON p.category_id = c.id
             WHERE p.id = $id";
@@ -47,18 +48,27 @@ if (isset($_POST['delete'])) {
 
     <div class="container">
         <?php if($post): ?>
-            <h4><?php echo htmlspecialchars($post['title']); ?></h4>
-            <p>Created by: <?php echo htmlentities($post['author']); ?></p>
-            <p><?php echo date($post['created_at']); ?></p>
-            <p><?php echo htmlspecialchars($post['body']); ?></p>
+            <div class="card" >
+                <?php if ($post['img'] != '') : ?>
+                    <?php $src = "uploads/". $post['img'] ?>
+                    <img class="card-img-top" src="<?php echo $src ?>" alt="Card image" style="height: 350px; object-fit:cover;">
+                <?php endif; ?>
 
-            <!-- DELETE POST -->
-            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-                <a href="/php-crash/api_myblog/index.php" class="btn btn-outline-secondary">Go Back</a>
-                <input type="hidden" name="id_to_delete" value="<?php echo $post['id']; ?>">
-                <input type="submit" name="delete" value="Delete" class="btn btn-outline-danger" onClick="return confirm('Are you sure you want to delete this post?')">
-                <a href="/php-crash/api_myblog/updatepost.php?id=<?php echo $post['id']; ?>" class="btn btn-outline-success">Update</a>
-            </form>
+                <div class="card-body">
+                    <h4 class="card-title"><?php echo htmlspecialchars($post['title']); ?></h4>
+                    <p class="card-subtitle">Created by: <?php echo htmlentities($post['author']); ?></p>
+                    <p class="text-muted"><?php $d=date_create($post['created_at']); echo date_format($d, "Y/m/d H:i"); ?></p>
+                    <p class="card-text"><?php echo htmlspecialchars($post['body']); ?></p>
+
+                    <!-- DELETE POST -->
+                    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+                        <a href="/php-crash/api_myblog/index.php" class="btn btn-outline-secondary">Go Back</a>
+                        <input type="hidden" name="id_to_delete" value="<?php echo $post['id']; ?>">
+                        <input type="submit" name="delete" value="Delete" class="btn btn-outline-danger" onClick="return confirm('Are you sure you want to delete this post?')">
+                        <a href="/php-crash/api_myblog/updatepost.php?id=<?php echo $post['id']; ?>" class="btn btn-outline-success">Update</a>
+                    </form>
+                </div>
+            </div>
         <?php else: ?>
             <h5>Searched post does not exist</h5>
         <?php endif; ?>
