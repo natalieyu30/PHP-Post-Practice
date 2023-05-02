@@ -108,7 +108,7 @@ if(isset($_POST['submit'])){
         // Save DB and check
         if (mysqli_query($conn, $sql)) {
             // Success
-            header('Location: index.php');
+            header("Location: detailspost.php?id=$id");
         } else {
             echo 'Query error: ' . mysqli_error($conn); 
         } 

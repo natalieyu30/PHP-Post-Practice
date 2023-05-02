@@ -90,22 +90,20 @@ function shorten_string($string, $wordsreturned)
     }
     return $retval;
 }
-
-
 ?>
 
 
 <?php include('templates/header.php'); ?>
-<h2>Posts</h2>
-<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" class="d-flex a-items-center">
-    <select class="form-select p-2 mr-2" name="category_id">
-        <option value="">All Categories</option>
-        <?php foreach($cats as $cat): ?>
-            <option value="<?php echo $cat['id'] ?>"><?php echo htmlspecialchars($cat['name']) ?></option>
-        <?php endforeach; ?>
-    </select>
-    <input type="submit" class="btn btn-dark" name="submit" value="GO">
-</form>
+    <h2>Posts</h2>
+    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" class="d-flex a-items-center justify-content-end w-100">
+        <select class="form-select p-2 mr-2" name="category_id">
+            <option value="">All Categories</option>
+            <?php foreach($cats as $cat): ?>
+                <option value="<?php echo $cat['id'] ?>"><?php echo htmlspecialchars($cat['name']) ?></option>
+            <?php endforeach; ?>
+        </select>
+        <input type="submit" class="btn btn-dark" name="submit" value="GO">
+    </form>
 <div class="container">
     <div class="row">
         <?php foreach($posts as $item): ?>

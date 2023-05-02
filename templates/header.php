@@ -26,11 +26,6 @@
                 >Create Post</a
               >
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/php-crash/feedback/about.php"
-                >About</a
-              >
-            </li>
         </ul>
       </div>
   </div>
