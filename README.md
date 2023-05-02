@@ -3,28 +3,31 @@ PHP REST API,  bring Post and Category data from MySQL
 
 ## Webpage
 * Display all posts
-![allposts](https://user-images.githubusercontent.com/72636598/235558931-7fac0fea-8989-4c7d-95f9-f8d200c3c50a.png)
+![allposts](https://user-images.githubusercontent.com/72636598/235690937-51cd1d3d-baa8-4468-a8e8-8f7a8601bd11.png)
 
 
 * Use filter dropdown list
-![filteredby](https://user-images.githubusercontent.com/72636598/235559068-bd38cac1-403b-43a3-a06f-21a65104719e.png)
+![filterbycategory](https://user-images.githubusercontent.com/72636598/235691055-ffe0d4f3-71c0-423d-a26f-0e2f16a30ce6.png)
 
 
 * Get all posts filtered by category
-![postsfilteredby](https://user-images.githubusercontent.com/72636598/235559101-024c1524-6d6a-42ac-8508-0465bd137c6f.png)
+![filteredposts](https://user-images.githubusercontent.com/72636598/235691099-acb1332c-1de0-4470-bb16-1a982aea99f0.png)
 
 
 * Create post page
-![createpost](https://user-images.githubusercontent.com/72636598/235558981-c6eb305d-8708-4cbf-b45d-0c3551d2aa50.png)
+![createpost](https://user-images.githubusercontent.com/72636598/235691154-604f6f56-62b7-4ee2-92bf-7b3393e57c9c.png)
 
 
 * Edit post page
-![editpost](https://user-images.githubusercontent.com/72636598/235559032-27bed684-fdaf-4d89-8521-b64204914773.png)
+![editpost](https://user-images.githubusercontent.com/72636598/235691302-1d1e10bb-0c6a-476f-a17e-71bb94eb7505.png)
 
 
 * Post details view
-![detailspage](https://user-images.githubusercontent.com/72636598/235559050-d3ca706f-21c4-4ff4-9227-2d5d8ba9dd5d.png)
+![details](https://user-images.githubusercontent.com/72636598/235691343-8fda5ec8-9017-45df-bf7e-57e03813c996.png)
 
+
+* Delete comfirmation
+![deletepost](https://user-images.githubusercontent.com/72636598/235691454-7de052d6-1c7e-411b-8c6d-0c480bde76bb.png)
 
 
 ## Responsiveness
