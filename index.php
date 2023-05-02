@@ -109,7 +109,7 @@ function shorten_string($string, $wordsreturned)
 <div class="container">
     <div class="row">
         <?php foreach($posts as $item): ?>
-            <div class="my-3 col-4">
+            <div class="my-3 col-12 col-md-6 col-lg-4">
                 <div class="card" >
                     <div class="card-header">
                         <?php echo htmlspecialchars($item['category_name']); ?>
